@@ -23,6 +23,7 @@ While getting data from the internet using **Ktor** is the primary focus for thi
 - Add the following in ```libs.versions.toml``` file 
 ```toml
 [versions]
+# ... Rest of the code
 kotlin = "2.0.0"
 ktor = "2.3.12"
 kotlinx-serialization = "2.0.0"
@@ -35,6 +36,7 @@ kotlinxCoroutines = "1.9.0-RC"
 ```
 ```toml
 [libraries]
+# ... Rest of the code
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" } # core engine. Not necessary
 ktor-client-android = { module = "io.ktor:ktor-client-android", version.ref = "ktor"} # engine that handles network requests on Android
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization-json"}
@@ -51,6 +53,7 @@ koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", versi
 ```
 ```toml
 [Plugins]
+# ... Rest of the code
 kotlinxSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinx-serialization" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 ```
@@ -65,6 +68,7 @@ coroutines = ["kotlinx-coroutines-core", "kotlinx-coroutines-android"]
 - Add the following in ```build.gradle.kts``` project-level file
 ```agsl
 plugins {
+    // ... Rest of the code
     alias(libs.plugins.kotlinxSerialization) apply false
     alias(libs.plugins.compose.compiler) apply false
 }
@@ -72,11 +76,13 @@ plugins {
 - Add the following in ```build.gradle.kts``` app-level file
 ```kotlin
 plugins {
+    // ... Rest of the code
     alias(libs.plugins.kotlinxSerialization)
     alias(libs.plugins.compose.compiler)
 }
 
 dependencies {
+    // ... Rest of the code
     implementation(libs.bundles.ktor)
     implementation(libs.lifecycle.viewmodel.compose)
     implementation(libs.compose.lifecycle)
