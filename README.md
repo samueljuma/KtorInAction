@@ -32,7 +32,8 @@ lifecycle = "2.8.4"
 koin = "3.5.6"
 koinCompose = "3.4.6"
 kotlinxCoroutines = "1.9.0-RC"
-
+```
+```
 [libraries]
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" } # core engine. Not necessary
 ktor-client-android = { module = "io.ktor:ktor-client-android", version.ref = "ktor"} # engine that handles network requests on Android
@@ -47,11 +48,13 @@ compose-lifecycle = { module = "androidx.lifecycle:lifecycle-runtime-compose", v
 koin-core = { module ="io.insert-koin:koin-core", version.ref = "koin"}
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin"}
 koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koinCompose"}
-
+```
+```
 [Plugins]
 kotlinxSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinx-serialization" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
-
+```
+```
 # Note: Bundles help us provide related dependencies all at once.
 [bundles]
 koin = ["koin-core", "koin-android", "koin-androidx-compose"]
