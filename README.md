@@ -175,7 +175,7 @@ class CommentsAPIService {
 </configuration>
 ```
 ## Step 4: Set up Your Repository
-- We use the Repository pattern to keep things clean and organized. Besides, the repository pattern helps to abstract the data access layer, providing a clean separation between the application's business logic and how it interacts with data sources. 
+- We use the ``Repository pattern`` to keep things clean and organized. Besides, the ``repository pattern`` helps to abstract the data access layer, providing a clean separation between the application's business logic and how it interacts with data sources. 
 - First, we need a custom ``NetworkResult`` generic sealed class to hold the network responses.  Create the sealed ``NetworkResult`` class inside the network package 
 
 ```kotlin
@@ -210,7 +210,7 @@ class CommentRepositoryImpl(
 ```
 - We parse an ``apiService`` to help us get data and the ``coroutineDispatcher`` to help us with switching tasks to background threads.
 
-### Step 5: Prepare ViewModel
+## Step 5: Prepare ViewModel
 - Create a new package ``viewmodel``
 - Inside create a file named ``CommentsViewModel`` with this code 
 ```kotlin
@@ -263,7 +263,7 @@ class CommentsViewModel(
 ```
 Notice we used flows and UIState. 
 
-### Step 6: Set up dependency injection with koin 
+## Step 6: Set up dependency injection with koin 
 - Create a new package called ``di``. Inside create a new file ``AppModules`` and declare your dependencies as follows 
 
 ```kotlin
@@ -304,11 +304,10 @@ class KtorInActionApplication: Application() {
 }
 ```
 
-### Step 7: Modify the ``AndroidManifest.xml`` file
+## Step 7: Modify the ``AndroidManifest.xml`` file
 - Next, in the manifest file, add the Application class inside the application tags 
-- ALso, explicitly declare your network permissions. 
->Without this your app wont be able to get data from the internet.
-```manifest
+- ALso, explicitly declare your network permissions. Without this your app wont be able to get data from the internet.
+```xml
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
@@ -328,8 +327,8 @@ class KtorInActionApplication: Application() {
 </application>
 ```
 
-### Step 8: Prepare your UI
-Now, we need the UI from where we will be displaying our comments. Here, we display specific UI for different UIStates as shown in the code below. 
+## Step 8: Prepare your UI
+- Now, we need the UI from where we will be displaying our comments. Here, we display specific UI for different UIStates as shown in the code below. 
 
 > Notice we use viewModel from ``koinViewModel`` – since we have ``dependency injection`` set up already with ``koin``
 ```kotlin
@@ -493,10 +492,10 @@ fun CommentItem(comment: Comment) {
     }
 }
 ```
-### Step 9: Run the Project. 
+## Step 9: Run the Project. 
 - At this point, all we need to run the project and see what we have created
 - You should get a nice Comments App like this one here
-##### Screenshots
+#### Screenshots
 
 [//]: # (|  <img src="screenshots/1.png"/>   | <img src="screenshots/2.png"/>  | <img src="screenshots/3.png"/> | <img src="screenshots/4.png"/> |)
 
