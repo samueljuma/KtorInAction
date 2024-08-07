@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.kotlinxSerialization)
+    alias(libs.plugins.compose.compiler) //starting Kotlin 2.0
 }
 
 android {
@@ -45,6 +47,7 @@ android {
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            excludes +="META-INF/INDEX.LIST"
         }
     }
 }
@@ -66,4 +69,10 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    implementation(libs.bundles.ktor)
+    implementation(libs.lifecycle.viewmodel.compose)
+    implementation(libs.compose.lifecycle)
+    implementation(libs.bundles.koin)
+    implementation(libs.bundles.coroutines)
 }
