@@ -176,7 +176,7 @@ class CommentsAPIService {
 ```
 ## Step 4: Set up Your Repository
 - We use the ``Repository pattern`` to keep things clean and organized. Besides, the ``repository pattern`` helps to abstract the data access layer, providing a clean separation between the application's business logic and how it interacts with data sources. 
-- First, we need a custom ``NetworkResult`` generic sealed class to hold the network responses.  Create the sealed ``NetworkResult`` class inside the network package 
+- First, we need a custom ``NetworkResult`` generic sealed class to hold the network responses.  Create the sealed ``NetworkResult`` class inside the ``network`` package 
 
 ```kotlin
 sealed class NetworkResult<out T> {
@@ -187,14 +187,14 @@ sealed class NetworkResult<out T> {
 
 - Now Create a ``repository`` package, inside the package create the ``repository interface`` and the ``implementation class`` as follows 
 ```kotlin
-interface CommentRepository {
+interface CommentsRepository {
     suspend fun getComments(): NetworkResult<List<Comment>>
 }
 
-class CommentRepositoryImpl(
+class CommentsRepositoryImpl(
     private val apiService: CommentsAPIService,
     private val dispatcher: CoroutineDispatcher
-): CommentRepository {
+): CommentsRepository {
 
     override suspend fun getComments(): NetworkResult<List<Comment>> {
         return withContext(dispatcher){
@@ -221,7 +221,7 @@ data class CommentsUIState(
 )
 
 class CommentsViewModel(
-    private val repository: CommentRepository
+    private val repository: CommentsRepository
 ): ViewModel() {
 
     private val _commentsUIState = MutableStateFlow(CommentsUIState())
@@ -274,7 +274,7 @@ val appModules = module {
     single { Dispatchers.IO }
 
     //repository dependency
-    single <CommentRepository>{
+    single <CommentsRepository>{
         CommentRepositoryImpl(
             apiService = get(),
             dispatcher = get()
