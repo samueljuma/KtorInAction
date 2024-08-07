@@ -20,9 +20,9 @@ While getting data from the internet using **Ktor** is the primary focus for thi
  
 ## Step 1: Add Dependencies and Plugins 
 ### We use versions Catalog
-- Add the following in ```libs.versions.toml``` file
-[versions]
+- Add the following in ```libs.versions.toml``` file 
 ```
+[versions]
 kotlin = "2.0.0"
 ktor = "2.3.12"
 kotlinx-serialization = "2.0.0"
@@ -33,8 +33,8 @@ koin = "3.5.6"
 koinCompose = "3.4.6"
 kotlinxCoroutines = "1.9.0-RC"
 ```
-[libraries]
 ```
+[libraries]
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" } # core engine. Not necessary
 ktor-client-android = { module = "io.ktor:ktor-client-android", version.ref = "ktor"} # engine that handles network requests on Android
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization-json"}
@@ -49,14 +49,14 @@ koin-core = { module ="io.insert-koin:koin-core", version.ref = "koin"}
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin"}
 koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koinCompose"}
 ```
-[Plugins]
 ```
+[Plugins]
 kotlinxSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinx-serialization" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 ```
-[bundles]
-> Note: Bundles help us provide related dependencies all at once.
 ```
+# Note: Bundles help us provide related dependencies all at once.
+[bundles]
 koin = ["koin-core", "koin-android", "koin-androidx-compose"]
 ktor = ["ktor-client-core", "ktor-client-android", "kotlinx-serialization-json", "ktor-client-content-negotiation",
     "ktor-serialization-kotlinx-json","ktor-client-logging", "logback-classic"]
