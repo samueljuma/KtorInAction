@@ -87,9 +87,10 @@ dependencies {
 Be sure to sync your project after adding dependencies. 
 While at it you're likely to run into an ```error``` like this one here 
 #### Possible Issues
-```text
-x files found with path 'META-INF/INDEX.LIST' .  Adding a packaging block may help, please refer to https://developer.android. com/ reference/ tools/ gradle- api/ 8. 5/ com/ android/ build/ api/ dsl/ Packaging for more information
-```
+> x files found with path 'META-INF/INDEX.LIST' .  Adding a packaging block may help, 
+> please refer to https://developer.android. com/ reference/ tools/ gradle- api/ 8. 5/ 
+> com/ android/ build/ api/ dsl/ Packaging for more information
+
 #### Solution
 - Add the ```excludes +="META-INF/INDEX.LIST"``` to the packaging block in your ```build.gradle.kts``` app-level file
 
