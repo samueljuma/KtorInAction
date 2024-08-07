@@ -109,3 +109,68 @@ android {
     }
 }
 ```
+
+## Step 2: Create the Http Android Client instance 
+- Create a package called ``network``. Inside it, create a file called ``CommentsAPIService.kt`` with this code.
+```kotlin
+val httpClient = HttpClient {
+    install(ContentNegotiation) {
+        json(
+            Json {
+                prettyPrint = true
+                isLenient = true
+                ignoreUnknownKeys = true
+            }
+        )
+    }
+    install(Logging){
+        logger = Logger.DEFAULT
+        level = LogLevel.HEADERS
+    }
+}
+
+```
+For Logging, you need to configure ``Logback``. In your src/main/resources directory, create a logback.xml file with this code 
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="DEBUG">
+        <appender-ref ref="CONSOLE" />
+    </root>
+</configuration>
+```
+## Step 3: Define your entity class 
+Now you need an entity class to hold your data. For our demo project we are getting ``comments`` data from a free API Faker ```{JSON} Placeholder```. Here is the endpoint: https://jsonplaceholder.typicode.com/comments 
+Our model class will be as follows. Create it in a package called ``models``
+
+```kotlin
+@Serializable
+data class Comment(
+    val body: String,
+    val email: String,
+    val id: Int,
+    val name: String,
+    val postId: Int
+)
+```
+Notice the @Serializable annotation - it helps us serialize our entity object and represnt it in other formats such as ``JSON``
+
+## Step 3: Configure API Service 
+We already created a file called ``CommentsAPIService.kt`` in the ``network`` package. Inside this file, below the ``HttpClient`` create an ``APIService`` as follows
+
+```kotlin
+class CommentsAPIService{
+
+    suspend fun getComments(): List<Comment> {
+        return httpClient
+            .get("https://jsonplaceholder.typicode.com/comments")
+            .body<List<Comment>>()
+    }
+}
+```
