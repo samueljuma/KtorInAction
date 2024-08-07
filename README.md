@@ -523,7 +523,7 @@ class MainActivity : ComponentActivity() {
 
 ## [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 ```
-   Copyright @2024 [Samuel Juma](https://github.com/samueljuma)
+   Copyright 2024 Samuel Juma
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
