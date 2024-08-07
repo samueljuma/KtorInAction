@@ -21,7 +21,7 @@ While getting data from the internet using **Ktor** is the primary focus for thi
 ## Step 1: Add Dependencies and Plugins 
 ### We use versions Catalog
 - Add the following in ```libs.versions.toml``` file 
-```
+```toml
 [versions]
 kotlin = "2.0.0"
 ktor = "2.3.12"
@@ -33,7 +33,7 @@ koin = "3.5.6"
 koinCompose = "3.4.6"
 kotlinxCoroutines = "1.9.0-RC"
 ```
-```
+```toml
 [libraries]
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" } # core engine. Not necessary
 ktor-client-android = { module = "io.ktor:ktor-client-android", version.ref = "ktor"} # engine that handles network requests on Android
@@ -49,16 +49,58 @@ koin-core = { module ="io.insert-koin:koin-core", version.ref = "koin"}
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin"}
 koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koinCompose"}
 ```
-```
+```toml
 [Plugins]
 kotlinxSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinx-serialization" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 ```
-```
+```toml
 # Note: Bundles help us provide related dependencies all at once.
 [bundles]
 koin = ["koin-core", "koin-android", "koin-androidx-compose"]
 ktor = ["ktor-client-core", "ktor-client-android", "kotlinx-serialization-json", "ktor-client-content-negotiation",
     "ktor-serialization-kotlinx-json","ktor-client-logging", "logback-classic"]
 coroutines = ["kotlinx-coroutines-core", "kotlinx-coroutines-android"]
+```
+- Add the following in ```build.gradle.kts``` project-level file
+```agsl
+plugins {
+    alias(libs.plugins.kotlinxSerialization) apply false
+    alias(libs.plugins.compose.compiler) apply false
+}
+```
+- Add the following in ```build.gradle.kts``` app-level file
+```kotlin
+plugins {
+    alias(libs.plugins.kotlinxSerialization)
+    alias(libs.plugins.compose.compiler)
+}
+
+dependencies {
+    implementation(libs.bundles.ktor)
+    implementation(libs.lifecycle.viewmodel.compose)
+    implementation(libs.compose.lifecycle)
+    implementation(libs.bundles.koin)
+    implementation(libs.bundles.coroutines)
+}
+```
+Be sure to sync your project after adding dependencies. 
+While at it you're likely to run into an ```error``` like this one here 
+#### Possible Issues
+```text
+x files found with path 'META-INF/INDEX.LIST' .  Adding a packaging block may help, please refer to https://developer.android. com/ reference/ tools/ gradle- api/ 8. 5/ com/ android/ build/ api/ dsl/ Packaging for more information
+```
+#### Solution
+- Add the ```excludes +="META-INF/INDEX.LIST"``` to the packaging block in your ```build.gradle.kts``` app-level file
+
+```kotlin
+android {
+    // ... Rest of the code
+    packaging {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            excludes +="META-INF/INDEX.LIST" // Add this line
+        }
+    }
+}
 ```
