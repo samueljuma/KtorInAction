@@ -275,7 +275,7 @@ val appModules = module {
 
     //repository dependency
     single <CommentsRepository>{
-        CommentRepositoryImpl(
+        CommentsRepositoryImpl(
             apiService = get(),
             dispatcher = get()
         )
@@ -369,8 +369,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.samueljuma.ktorinaction.model.Comment
-import com.samueljuma.ktorinaction.viewmodel.CommentsViewModel
 import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -492,6 +490,28 @@ fun CommentItem(comment: Comment) {
     }
 }
 ```
+- Now we need to use the ```CommentsListScreen.kt``` in our ``MainActivity.kt``. Your new ``MainActivity.kt`` file should be as follows 
+```kotlin
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
+import com.samueljuma.ktorinaction.screens.CommentsListScreen
+import com.samueljuma.ktorinaction.ui.theme.KtorInActionTheme
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        setContent {
+            KtorInActionTheme {
+                CommentsListScreen()
+            }
+        }
+    }
+}
+```
+
 ## Step 9: Run the Project. 
 - At this point, all we need to run the project and see what we have created
 - You should get a nice Comments App like this one here
