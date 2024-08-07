@@ -8,7 +8,7 @@ A lightweight and flexible framework for building asynchronous client and server
 - **Built and backed by JetBrains** - the very creator of Kotlin, IntelliJ IDEA and more 
 - **Multiplatform support** - Ktor is a multiplatform library, allowing you to share network code between different platforms (Android, iOS, JVM, JS, Native).
 
-# Let's Build
+# Let's Build 👷‍♂️⚒️🪛
 While getting data from the internet using **Ktor** is the primary focus for this project, we will use other libraries including
 - Koin - for dependency injection
 - Kotlinx-serialization - core library for serializing and deserializing Kotlin objects
