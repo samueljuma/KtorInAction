@@ -1,11 +1,11 @@
 # KtorInAction
-A simple app showcasing how [Ktor](https://ktor.io/docs/welcome.html) can be leveraged for Network calls. In this project, we build a nice **Comments App**, that fetches [data](https://jsonplaceholder.typicode.com/comments) from a free API Faker **"{JSON} Placeholder"**.
+A simple app showcasing how [Ktor](https://ktor.io/docs/welcome.html) can be leveraged for Network calls. In this project, we build a nice **Comments App**, that fetches [data](https://jsonplaceholder.typicode.com/comments) from a free API Faker **"{JSON} Placeholder"**. 
 ## What is Ktor?
 A lightweight and flexible framework for building asynchronous client and server-side applications in Kotlin
-## Why Ktor?
-- **Kotlin and Coroutines** - Ktor is built from the ground up using Kotlin and Coroutines, as such it is provides a "Kotlin-first" approach and support for asynchronous tasks.
-- **Lightweight and flexible** - Ktor allows you to only use what you need and to structure your application the way you need.
-- **Built and backed by JetBrains** - the very creator of Kotlin, IntelliJ IDEA and more
+## Why Ktor? 
+- **Kotlin and Coroutines** - Ktor is built from the ground up using Kotlin and Coroutines, as such it is provides a "Kotlin-first" approach and support for asynchronous tasks. 
+- **Lightweight and flexible** - Ktor allows you to only use what you need and to structure your application the way you need. 
+- **Built and backed by JetBrains** - the very creator of Kotlin, IntelliJ IDEA and more 
 - **Multiplatform support** - Ktor is a multiplatform library, allowing you to share network code between different platforms (Android, iOS, JVM, JS, Native).
 
 # Let's Build 👷‍♂️⚒️🪛
@@ -13,14 +13,14 @@ While getting data from the internet using **Ktor** is the primary focus for thi
 - Koin - for dependency injection
 - Kotlinx-serialization - core library for serializing and deserializing Kotlin objects
 - kotlinx-serialization-json - provides JSON Format specific support . For entity serialization
-- Kotlinx-coroutines
-- Content-negotiation - needed for Ktor http requests and kotlinx-seialization to work together seamlessly
-- lifecycle
+- Kotlinx-coroutines 
+- Content-negotiation - needed for Ktor http requests and kotlinx-seialization to work together seamlessly 
+- lifecycle 
 - Logback - a logging framework that enables logging for Ktor
-
-## Step 1: Add Dependencies and Plugins
+ 
+## Step 1: Add Dependencies and Plugins 
 ### We use versions Catalog
-- Add the following in ```libs.versions.toml``` file
+- Add the following in ```libs.versions.toml``` file 
 ```toml
 [versions]
 # ... Rest of the code
@@ -90,8 +90,8 @@ dependencies {
     implementation(libs.bundles.coroutines)
 }
 ```
-- Be sure to ```sync``` your project after adding dependencies.
-  While at it you're likely to run into an ```issue``` like this one here⬇️
+- Be sure to ```sync``` your project after adding dependencies. 
+While at it you're likely to run into an ```issue``` like this one here⬇️
 #### Possible Issues❗
 > x files found with path 'META-INF/INDEX.LIST' . Adding a packaging block may help, please refer to https://developer.android.com/reference/tools/gradle-api/8.5/com/android/build/api/dsl/Packaging for more information
 
@@ -125,9 +125,9 @@ data class Comment(
 ```
 Notice the @Serializable annotation - it helps us serialize our entity object and represnt it in other formats such as ``JSON``
 
-## Step 3: Set up Your API Service
-- Create a package called ``network``. Inside it, create a file called ``CommentsAPIService.kt``
-- You need a ``http client`` for your API service to help you get data from the internet. Inside your ``CommentsAPIService.kt`` file create an instance of the client like this
+## Step 3: Set up Your API Service 
+- Create a package called ``network``. Inside it, create a file called ``CommentsAPIService.kt`` 
+- You need a ``http client`` for your API service to help you get data from the internet. Inside your ``CommentsAPIService.kt`` file create an instance of the client like this 
 ```kotlin
 val httpClient = HttpClient {
     install(ContentNegotiation) {
@@ -146,8 +146,8 @@ val httpClient = HttpClient {
 }
 
 ```
-- Notice we are configuring our client to use ``ContentNegotiation`` and ``Logging``. More ``configurations`` can be done but for brevity we will keep these two.
-  Now we need an ``APIService``. Inside ``CommentsAPIService.kt``, below the ``http client`` create an API Service class as follows
+- Notice we are configuring our client to use ``ContentNegotiation`` and ``Logging``. More ``configurations`` can be done but for brevity we will keep these two. 
+Now we need an ``APIService``. Inside ``CommentsAPIService.kt``, below the ``http client`` create an API Service class as follows 
 ```kotlin
 class CommentsAPIService {
 
@@ -175,8 +175,8 @@ class CommentsAPIService {
 </configuration>
 ```
 ## Step 4: Set up Your Repository
-- We use the ``Repository pattern`` to keep things clean and organized. Besides, the ``repository pattern`` helps to abstract the data access layer, providing a clean separation between the application's business logic and how it interacts with data sources.
-- First, we need a custom ``NetworkResult`` generic sealed class to hold the network responses.  Create the sealed ``NetworkResult`` class inside the ``network`` package
+- We use the ``Repository pattern`` to keep things clean and organized. Besides, the ``repository pattern`` helps to abstract the data access layer, providing a clean separation between the application's business logic and how it interacts with data sources. 
+- First, we need a custom ``NetworkResult`` generic sealed class to hold the network responses.  Create the sealed ``NetworkResult`` class inside the ``network`` package 
 
 ```kotlin
 sealed class NetworkResult<out T> {
@@ -185,7 +185,7 @@ sealed class NetworkResult<out T> {
 }
 ```
 
-- Now Create a ``repository`` package, inside the package create the ``repository interface`` and the ``implementation class`` as follows
+- Now Create a ``repository`` package, inside the package create the ``repository interface`` and the ``implementation class`` as follows 
 ```kotlin
 interface CommentsRepository {
     suspend fun getComments(): NetworkResult<List<Comment>>
@@ -212,7 +212,7 @@ class CommentsRepositoryImpl(
 
 ## Step 5: Prepare ViewModel
 - Create a new package ``viewmodel``
-- Inside create a file named ``CommentsViewModel`` with this code
+- Inside create a file named ``CommentsViewModel`` with this code 
 ```kotlin
 data class CommentsUIState(
     val comments: List<Comment> = emptyList(),
@@ -261,10 +261,10 @@ class CommentsViewModel(
     }
 }
 ```
-Notice we used flows and UIState.
+Notice we used flows and UIState. 
 
-## Step 6: Set up dependency injection with koin
-- Create a new package called ``di``. Inside create a new file ``AppModules`` and declare your dependencies as follows
+## Step 6: Set up dependency injection with koin 
+- Create a new package called ``di``. Inside create a new file ``AppModules`` and declare your dependencies as follows 
 
 ```kotlin
 val appModules = module {
@@ -285,7 +285,7 @@ val appModules = module {
 
 }
 ```
-- Next, create an ``Application`` class that extends the ``Application class``. We start ``Koin`` from this class
+- Next, create an ``Application`` class that extends the ``Application class``. We start ``Koin`` from this class 
 
 ```kotlin
 import android.app.Application
@@ -305,7 +305,7 @@ class KtorInActionApplication: Application() {
 ```
 
 ## Step 7: Modify the ``AndroidManifest.xml`` file
-- Next, in the manifest file, add the Application class inside the application tags
+- Next, in the manifest file, add the Application class inside the application tags 
 - ALso, explicitly declare your network permissions. Without this your app wont be able to get data from the internet.
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -328,7 +328,7 @@ class KtorInActionApplication: Application() {
 ```
 
 ## Step 8: Prepare your UI
-- Now, we need the UI from where we will be displaying our comments. Here, we display specific UI for different UIStates as shown in the code below.
+- Now, we need the UI from where we will be displaying our comments. Here, we display specific UI for different UIStates as shown in the code below. 
 
 > Notice we use viewModel from ``koinViewModel`` – since we have ``dependency injection`` set up already with ``koin``
 ```kotlin
@@ -490,7 +490,7 @@ fun CommentItem(comment: Comment) {
     }
 }
 ```
-- Now we need to use the ```CommentsListScreen.kt``` in our ``MainActivity.kt``. Your new ``MainActivity.kt`` file should be as follows
+- Now we need to use the ```CommentsListScreen.kt``` in our ``MainActivity.kt``. Your new ``MainActivity.kt`` file should be as follows 
 ```kotlin
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -512,7 +512,7 @@ class MainActivity : ComponentActivity() {
 }
 ```
 
-## Step 9: Run the Project.
+## Step 9: Run the Project. 
 - At this point, all we need to run the project and see what we have created
 - You should get a nice Comments App like this one here
 #### Screenshots
